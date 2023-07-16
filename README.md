@@ -8,11 +8,10 @@
 
  Official implementation of "Make Encoder Great Again in 3D GAN Inversion through Geometry and Occlusion-Aware Encoding" ICCV 2023
 
-<div align="center">
-<video style="width:97%;height:97%;" playsinline autoplay loop preload muted>
-    <source src="assets/teaser.mp4" type="video/mp4">
+
+<video id="video" controls="" preload="none" >
+    <source id="mp4" src="assets/teaser.mp4" type="video/mp4">
 </video>
-</div>
 
 
 ## Introduction
