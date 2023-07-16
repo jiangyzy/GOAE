@@ -8,18 +8,16 @@
 
  Official implementation of "Make Encoder Great Again in 3D GAN Inversion through Geometry and Occlusion-Aware Encoding" ICCV 2023
 
-
-<video id="video" controls="" preload="none" >
-    <source id="mp4" src="assets/teaser.mp4" type="video/mp4">
-</video>
+<div align="center">
+<img src="assets/teaser.gif" >
+</div>
 
 
 ## Introduction
-We present a encoder-based 3D generative adversarial network (GAN) inversion framework that can efficiently synthesize photo-
-realistic novel views while preserving geometry and details of the
-input image.
+We present a encoder-based 3D generative adversarial network (GAN) inversion framework that can efficiently synthesize photo-realistic novel views while preserving geometry and details of the input image.
+
 <div align="center">
-<img src="assets/framework.png" width="800px"/>  
+<img src="assets/framework.png" width="600px"/>  
 </div>
 
 
