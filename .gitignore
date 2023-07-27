@@ -1,0 +1,6 @@
+*.pyc
+**/__pycache__
+
+example
+output
+pretrained

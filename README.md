@@ -20,7 +20,31 @@ We present a encoder-based 3D generative adversarial network (GAN) inversion fra
 <img src="assets/framework.png" width="600px"/>  
 </div>
 
+## :desktop_computer: Requirements
+* 64-bit Python 3.8 and PyTorch 1.11.0 (or later).
+* CUDA toolkit 11.3 or later.  
+* Python libraries: see [requirements.txt](./goae/requirements.txt)
 
+```bash
+cd goae
+conda create --name goae python=3.8
+conda activate goae
+pip install -r requirements.txt
+```
+
+## :running_woman: Inference
+
+### Prepare Dataset 
+Dataset preparation can refer to [EG3D](https://github.com/NVlabs/eg3d/) or this [repo](https://github.com/jiangyzy/Pose_Estimator)
+
+### Download Models
+The pretrained model checkpoint can be downloaded from [google drive](https://drive.google.com/drive/folders/12pTX5TKQcA8ElNW5jDkWURSPUyISggHs?usp=sharing), Put those checkpoint into  the directory  `GOAE/pretrained` . Note that current pretrained AFA only modifies the triplane on 32*32 resolution, more higher resolution modify can achieve better result, better checkpoints and model will be released soon. 
+
+### Commands
+
+```bash
+python infer.py --multi_view --video
+```
 
 ## :handshake: Citation
 If you find this work useful for your research, please cite:
