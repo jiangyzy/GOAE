@@ -35,7 +35,7 @@ pip install -r requirements.txt
 ## :running_woman: Inference
 
 ### Prepare Dataset 
-Dataset preparation can refer to [EG3D](https://github.com/NVlabs/eg3d/) or this [repo](https://github.com/jiangyzy/Pose_Estimator)
+Dataset preparation can refer to [EG3D](https://github.com/NVlabs/eg3d/) or these [codes](https://github.com/FeiiYin/SPI/blob/main/preprocess/)
 
 ### Download Models
 The pretrained model checkpoint can be downloaded from [google drive](https://drive.google.com/drive/folders/12pTX5TKQcA8ElNW5jDkWURSPUyISggHs?usp=sharing), Put those checkpoint into  the directory  `GOAE/pretrained` . Note that current pretrained AFA only modifies the triplane on 32*32 resolution, more higher resolution modify can achieve better result, better checkpoints and model will be released soon. 
