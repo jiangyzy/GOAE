@@ -42,6 +42,8 @@ The pretrained model checkpoint can be downloaded from [google drive](https://dr
 
 ### Commands
 
+You can use the command below to test the example.
+
 ```bash
 python infer.py --multi_view --video
 ```
