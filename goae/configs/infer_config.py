@@ -23,5 +23,10 @@ def get_parser():
     parser.add_argument("--multi_view", action="store_true", default=False)
     parser.add_argument("--video", action="store_true", default=False)
     parser.add_argument("--shape", action="store_true", default=False)
+    parser.add_argument("--edit", action="store_true", default=False)
+
+    ## edit 
+    parser.add_argument("--edit_attr", type=str, help="editing attribute direction", default="glass")
+    parser.add_argument("--alpha", type=float, help="editing alpha", default=1.0)
 
     return parser

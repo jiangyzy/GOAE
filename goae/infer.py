@@ -97,6 +97,49 @@ def infer_main(opts, device, now):
         if opts.shape:
             mesh_path = os.path.join(save_dir, 'mesh.mrc')
             gen_mesh(G = net.decoder, ws = None, triplane=mix_triplane, save_path=mesh_path, device=device) 
+        
+        if opts.edit:
+            if "edit_d" not in locals():
+                ## EG3D W space attribution entanglement when applying InterFaceGAN 
+                if opts.edit_attr != "glass":
+                    edit_d = np.load(os.path.join("../example/ws_edit", opts.edit_attr+".npy")) 
+                    edit_d_glass = np.load(os.path.join("../example/ws_edit", "glass.npy")) 
+                    edit_d = opts.alpha*edit_d - 0.8*edit_d_glass      
+                else:
+                    edit_d = np.load(os.path.join("../example/ws_edit", opts.edit_attr+".npy"))
+                    edit_d = opts.alpha*edit_d
+
+                edit_d = torch.tensor(edit_d).to(device)
+
+            edit_ws = rec_ws + edit_d
+            img_edit_dict, img_edit_dict_w = net.edit(rec_ws, edit_ws, real_img_512, real_label)
+            mix_triplane_edit = img_edit_dict["mix_triplane"]
+            edit_img = face_pool(img_edit_dict["image"])
+            torchvision.utils.save_image(torch.cat([real_img, edit_img]), os.path.join(save_dir, f'edit_img_{opts.edit_attr}_{opts.alpha}.jpg'), 
+                                            padding=0, normalize=True, range=(-1,1))
+
+            if opts.multi_view:
+                imgs_multi_view = []
+                coef = [ 1 , 0, -1 ]
+                for j in range(3):
+                    yaw =  coef[j] * np.pi*25/360
+                    pitch = 0
+                    c = get_pose(cam_pivot=cam_pivot, intrinsics=intrinsics, yaw=yaw, pitch=pitch)
+
+                    img_dict_novel_view = net.decoder.synthesis(ws=edit_ws, c=c, triplane=mix_triplane_edit, forward_triplane=True, noise_mode='const') 
+                    img_novel_view= face_pool(img_dict_novel_view["image"])
+                    imgs_multi_view.append(img_novel_view)
+
+                torchvision.utils.save_image(torch.cat(imgs_multi_view), os.path.join(save_dir, f'multi_view_edit_{opts.edit_attr}_{opts.alpha}.jpg'), 
+                                            padding=0, normalize=True, range=(-1,1))
+
+
+            if opts.video:
+                video_path = os.path.join(save_dir, f'video_edit_{opts.edit_attr}_{opts.alpha}.mp4')
+                camera_lookat_point = torch.tensor(net.decoder.rendering_kwargs['avg_camera_pivot'], device=device)
+                gen_interp_video(net.decoder, edit_ws, triplane=mix_triplane_edit, 
+                                    mp4=video_path, image_mode='image', device=device, w_frames=opts.w_frames)
+
 
 
 if __name__=="__main__":

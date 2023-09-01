@@ -38,7 +38,7 @@ pip install -r requirements.txt
 Dataset preparation can refer to [EG3D](https://github.com/NVlabs/eg3d/) or these [codes](https://github.com/FeiiYin/SPI/blob/main/preprocess/)
 
 ### Download Models
-The pretrained model checkpoint can be downloaded from [google drive](https://drive.google.com/drive/folders/12pTX5TKQcA8ElNW5jDkWURSPUyISggHs?usp=sharing), Put those checkpoint into  the directory  `GOAE/pretrained` . Note that current pretrained AFA only modifies the triplane on 32*32 resolution, more higher resolution modify can achieve better result, better checkpoints and model will be released soon. 
+The pretrained model checkpoint can be downloaded from [google drive](https://drive.google.com/drive/folders/12pTX5TKQcA8ElNW5jDkWURSPUyISggHs?usp=sharing), Put those checkpoint into  the directory  `GOAE/pretrained` . Note that current pretrained AFA only modifies the triplane on 32*32 resolution, more higher resolution modify can achieve better result.
 
 ### Commands
 
@@ -47,6 +47,13 @@ You can use the command below to test the example.
 ```bash
 python infer.py --multi_view --video
 ```
+
+You can use the command below to edit the example.
+
+```bash
+python infer.py --multi_view --video --edit --edit_attr glass --alpha 1.0
+```
+
 
 ## :handshake: Citation
 If you find this work useful for your research, please cite:

@@ -297,3 +297,38 @@ class Net(nn.Module):
         # mix_triplane = mask * f_triplane + (1-mask) * w_triplane
 
         return mix_triplane, mask
+
+
+    def edit(self, ws_rec, edit_ws, x_512, c):  
+        B = ws_rec.shape[0]
+        
+        ## W + space
+        triplane_rec, triplane_x_rec = self.decoder.synthesis(ws=ws_rec, c=c, train_forward_1=True, noise_mode='const')  
+        rec_img_dict_w_rec = self.decoder.synthesis(ws=ws_rec, c=c, 
+                                    triplane=triplane_rec, triplane_x=triplane_x_rec, train_forward_2=True, noise_mode='const')    
+
+        triplane_edit, triplane_x_edit = self.decoder.synthesis(ws=edit_ws, c=c, train_forward_1=True, noise_mode='const')  
+        rec_img_dict_w_edit = self.decoder.synthesis(ws=edit_ws, c=c, 
+                                    triplane=triplane_edit, triplane_x=triplane_x_edit, train_forward_2=True, noise_mode='const')            
+
+        img_rec_w = rec_img_dict_w_rec['image']
+        img_edit_dict_w = rec_img_dict_w_edit['image']
+
+        ## F space
+        w_triplane = rec_img_dict_w_edit['triplane']
+        feature_map_adain_rec, gamma_rec, beta_rec = self.afa(x_512, img_rec_w, triplane_x_rec)
+        feature_map_adain = feature_map_adain_rec + (triplane_x_edit - triplane_x_rec)
+
+
+        img_dict = self.decoder.synthesis(ws=ws_rec, c=c, 
+                                    triplane=triplane_edit, triplane_x=feature_map_adain, train_forward_2=True, noise_mode='const')
+
+        ## Occlusion-Aware mix Fusion
+        mix_triplane, mask = self.mix_fusion(B, img_dict, rec_img_dict_w_edit)
+
+        img_edit_dict = self.decoder.synthesis(ws=edit_ws, c=c,
+                                    triplane=mix_triplane, forward_triplane=True, noise_mode='const') 
+        
+        img_edit_dict['mix_triplane'] = mix_triplane
+
+        return  img_edit_dict, img_edit_dict_w
