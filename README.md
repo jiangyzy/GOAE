@@ -13,7 +13,7 @@
 </div>
 
 
-## Introduction
+## :fire: Introduction
 We present a encoder-based 3D generative adversarial network (GAN) inversion framework that can efficiently synthesize photo-realistic novel views while preserving geometry and details of the input image.
 
 <div align="center">
