@@ -66,4 +66,4 @@ If you find this work useful for your research, please cite:
 }
 ```
 ## :mailbox: Contact
-If your have any comments or questions, please open a new issue or feel free to contact Ziyang Yuan (yuanzy22@mails.tsinghua.edu).
+If you have any comments or questions, please open a new issue or feel free to contact Ziyang Yuan (yuanzy22@mails.tsinghua.edu).
