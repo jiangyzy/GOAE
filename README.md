@@ -54,6 +54,9 @@ You can use the command below to edit the example.
 python infer.py --multi_view --video --edit --edit_attr glass --alpha 1.0
 ```
 
+### Training codes
+Training codes can be downloaded from [here](https://drive.google.com/file/d/1_T6P_Is-iSM6h6lqdlrlTUFmQGTUtZd_/view?usp=sharing).
+
 
 ## :handshake: Citation
 If you find this work useful for your research, please cite:
